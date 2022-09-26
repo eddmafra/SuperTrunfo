@@ -1,0 +1,16 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "lint:styles",
+			"problemMatcher": [],
+			"label": "npm: lint:styles",
+			"detail": "npx stylelint '**/*.css'",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		}
+	]
+}
