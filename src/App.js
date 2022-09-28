@@ -2,19 +2,23 @@ import React from 'react';
 import Form from './components/Form';
 import Card from './components/Card';
 
+const defaultState = {
+  cardName: '',
+  cardDescription: '',
+  cardAttr1: '0',
+  cardAttr2: '0',
+  cardAttr3: '0',
+  cardImage: '',
+  cardRare: 'normal',
+  cardTrunfo: false,
+  isSaveButtonDisabled: true,
+};
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      cardName: '',
-      cardDescription: '',
-      cardImage: '',
-      cardAttr1: '',
-      cardAttr2: '',
-      cardAttr3: '',
-      cardRare: '',
-      cardTrunfo: false,
-      isSaveButtonDisabled: true,
+      ...defaultState,
+      deckOfCards: [],
     };
   }
 
@@ -29,8 +33,32 @@ class App extends React.Component {
     });
   };
 
-  onSaveButtonClick = (event) => {
-    event.preventDefault();
+  onSaveButtonClick = () => {
+    const {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+    } = this.state;
+
+    const savedCard = {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+    };
+    this.setState((prev) => ({
+      deckOfCards: [...prev.deckOfCards, savedCard],
+      ...defaultState,
+    }));
   };
 
   validateButton = () => {
@@ -86,6 +114,24 @@ class App extends React.Component {
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
         />
+        {/* <section className="deck">
+          {
+            deckOfCards.map((e, i) => {
+              <div key={ i }>
+                <Card
+                  cardName={ e.cardName }
+                  cardDescription={ e.cardDescription }
+                  cardImage={ e.cardImage }
+                  cardAttr1={ e.cardAttr1 }
+                  cardAttr2={ e.cardAttr2 }
+                  cardAttr3={ e.cardAttr3 }
+                  cardRare={ e.cardRare }
+                  cardTrunfo={ e.cardTrunfo }
+                />
+              </div>;
+            })
+          }
+        </section> */}
       </div>
     );
   }
