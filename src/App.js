@@ -12,6 +12,7 @@ const defaultState = {
   cardRare: 'normal',
   cardTrunfo: false,
   isSaveButtonDisabled: true,
+  hasTrunfo: false,
 };
 class App extends React.Component {
   constructor() {
@@ -25,7 +26,7 @@ class App extends React.Component {
   onInputChange = (event) => {
     const { name, type, checked } = event.target;
     // console.log(this.state);
-    const value = type === 'chekbox' ? checked : event.target.value;
+    const value = type === 'checkbox' ? checked : event.target.value;
     this.setState({
       [name]: value,
     }, () => {
@@ -43,6 +44,8 @@ class App extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
+      hasTrunfo,
+      deckOfCards,
     } = this.state;
 
     const savedCard = {
@@ -55,10 +58,11 @@ class App extends React.Component {
       cardRare,
       cardTrunfo,
     };
-    this.setState((prev) => ({
-      deckOfCards: [...prev.deckOfCards, savedCard],
+    this.setState({
+      deckOfCards: [...deckOfCards, savedCard],
       ...defaultState,
-    }));
+      hasTrunfo,
+    }, () => this.validateTrunfo());
   };
 
   validateButton = () => {
@@ -83,6 +87,14 @@ class App extends React.Component {
         && cardAttr3 >= 0
         && cardAttr3 <= NINETY
         && SUMATRR <= TWO_HUNDRED_TEN) { return true; }
+  };
+
+  validateTrunfo = () => {
+    const { deckOfCards } = this.state;
+    if (deckOfCards.some((e) => e.cardTrunfo === true)) {
+      return this.setState({ hasTrunfo: true });
+    }
+    this.setState({ hasTrunfo: false });
   };
 
   render() {
@@ -116,7 +128,7 @@ class App extends React.Component {
         />
         {/* <section className="deck">
           {
-            deckOfCards.map((e, i) => {
+            deckOfCards.map((e, i) => (
               <div key={ i }>
                 <Card
                   cardName={ e.cardName }
@@ -128,8 +140,8 @@ class App extends React.Component {
                   cardRare={ e.cardRare }
                   cardTrunfo={ e.cardTrunfo }
                 />
-              </div>;
-            })
+              </div>
+            ))
           }
         </section> */}
       </div>
