@@ -107,6 +107,7 @@ class App extends React.Component {
       cardAttr3,
       cardRare,
       cardTrunfo,
+      deckOfCards,
     } = this.state;
     return (
       <div>
@@ -126,7 +127,7 @@ class App extends React.Component {
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
         />
-        {/* <section className="deck">
+        <section className="deck">
           {
             deckOfCards.map((e, i) => (
               <div key={ i }>
@@ -143,7 +144,7 @@ class App extends React.Component {
               </div>
             ))
           }
-        </section> */}
+        </section>
       </div>
     );
   }
