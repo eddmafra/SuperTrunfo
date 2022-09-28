@@ -17,7 +17,7 @@ class Form extends React.Component {
       isSaveButtonDisabled,
     } = this.props;
     return (
-      <form>
+      <form className="formulario">
         <label htmlFor="card_name">
           Nome:
           <input
