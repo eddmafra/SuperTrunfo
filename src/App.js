@@ -97,6 +97,14 @@ class App extends React.Component {
     this.setState({ hasTrunfo: false });
   };
 
+  deleteCard = (event) => {
+    // console.log(event.target.name) === index do array;
+    const { deckOfCards } = this.state;
+    this.setState({ deckOfCards: deckOfCards
+      .filter((e) => e !== deckOfCards[event.target.name]),
+    }, this.validateTrunfo);
+  };
+
   render() {
     const {
       cardName,
@@ -141,6 +149,15 @@ class App extends React.Component {
                   cardRare={ e.cardRare }
                   cardTrunfo={ e.cardTrunfo }
                 />
+                <button
+                  name={ i }
+                  type="button"
+                  data-testid="delete-button"
+                  onClick={ this.deleteCard }
+                >
+                  Excluir
+
+                </button>
               </div>
             ))
           }
